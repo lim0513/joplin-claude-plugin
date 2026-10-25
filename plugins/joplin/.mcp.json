@@ -1,0 +1,20 @@
+{
+  "mcpServers": {
+    "joplin": {
+      "command": "node",
+      "args": ["${CLAUDE_PLUGIN_ROOT}/server/index.mjs"],
+      "env": {
+        "JOPLIN_CONFIG": "${JOPLIN_CONFIG:-}",
+        "JOPLIN_MODE": "${JOPLIN_MODE:-}",
+        "JOPLIN_URL": "${JOPLIN_URL:-}",
+        "JOPLIN_TOKEN": "${JOPLIN_TOKEN:-}",
+        "JOPLIN_PROFILE_DIR": "${JOPLIN_PROFILE_DIR:-}",
+        "JOPLIN_SERVER_URL": "${JOPLIN_SERVER_URL:-}",
+        "JOPLIN_SERVER_EMAIL": "${JOPLIN_SERVER_EMAIL:-}",
+        "JOPLIN_SERVER_PASSWORD": "${JOPLIN_SERVER_PASSWORD:-}",
+        "JOPLIN_SERVER_ALLOW_WRITE": "${JOPLIN_SERVER_ALLOW_WRITE:-}",
+        "JOPLIN_SERVER_CACHE": "${JOPLIN_SERVER_CACHE:-}"
+      }
+    }
+  }
+}

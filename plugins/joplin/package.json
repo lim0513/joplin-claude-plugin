@@ -1,0 +1,10 @@
+{
+  "name": "claude-plugin-joplin",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Claude Code plugin + MCP server for Joplin (desktop Data API and Joplin Server)",
+  "engines": { "node": ">=18" },
+  "scripts": { "test": "node --test test/*.test.mjs", "start": "node server/index.mjs" },
+  "license": "MIT"
+}

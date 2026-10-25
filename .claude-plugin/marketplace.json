@@ -1,0 +1,13 @@
+{
+  "name": "joplin-tools",
+  "owner": { "name": "lim0513", "email": "limeng0513@gmail.com" },
+  "metadata": { "description": "Claude Code plugins for Joplin" },
+  "plugins": [
+    {
+      "name": "joplin",
+      "source": "./plugins/joplin",
+      "description": "Read, search and write Joplin notes via Joplin desktop or a (self-hosted) Joplin Server",
+      "category": "productivity"
+    }
+  ]
+}

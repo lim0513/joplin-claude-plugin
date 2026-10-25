@@ -1,0 +1,8 @@
+{
+  "name": "joplin",
+  "version": "0.1.0",
+  "description": "Read, search and write Joplin notes from Claude Code — through the local Joplin desktop Data API or a Joplin Server (official or self-hosted).",
+  "author": { "name": "lim0513", "email": "limeng0513@gmail.com" },
+  "license": "MIT",
+  "keywords": ["joplin", "notes", "markdown", "mcp", "knowledge-base"]
+}
