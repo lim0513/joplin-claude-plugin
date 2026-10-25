@@ -1,0 +1,8 @@
+test/
+commands/
+skills/
+.claude-plugin/
+.mcp.json
+.mcpbignore
+package.json
+*.mcpb

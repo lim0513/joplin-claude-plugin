@@ -1,0 +1,97 @@
+{
+  "$schema": "https://raw.githubusercontent.com/modelcontextprotocol/mcpb/main/dist/mcpb-manifest-v0.3.schema.json",
+  "manifest_version": "0.3",
+  "name": "joplin",
+  "display_name": "Joplin",
+  "version": "0.1.0",
+  "description": "Search, read and write your Joplin notes via Joplin desktop or a (self-hosted) Joplin Server.",
+  "long_description": "Connects Claude to [Joplin](https://joplinapp.org) notes.\n\n- **Local mode** (default): talks to Joplin desktop on this computer through its Data API. Enable *Tools > Options > Web Clipper* in Joplin. The token is auto-detected; paste it below only if detection fails.\n- **Server mode**: fill in the Joplin Server URL, email and password (official or self-hosted server). Read-only unless *Allow writes* is on. End-to-end encrypted accounts must use local mode.",
+  "author": { "name": "lim0513", "email": "limeng0513@gmail.com", "url": "https://github.com/lim0513" },
+  "repository": { "type": "git", "url": "https://github.com/lim0513/joplin-claude-plugin" },
+  "homepage": "https://github.com/lim0513/joplin-claude-plugin",
+  "documentation": "https://github.com/lim0513/joplin-claude-plugin/blob/main/plugins/joplin/README.md",
+  "support": "https://github.com/lim0513/joplin-claude-plugin/issues",
+  "license": "MIT",
+  "keywords": ["joplin", "notes", "markdown", "knowledge-base"],
+  "server": {
+    "type": "node",
+    "entry_point": "server/index.mjs",
+    "mcp_config": {
+      "command": "node",
+      "args": ["${__dirname}/server/index.mjs"],
+      "env": {
+        "JOPLIN_URL": "${user_config.local_url}",
+        "JOPLIN_TOKEN": "${user_config.local_token}",
+        "JOPLIN_SERVER_URL": "${user_config.server_url}",
+        "JOPLIN_SERVER_EMAIL": "${user_config.server_email}",
+        "JOPLIN_SERVER_PASSWORD": "${user_config.server_password}",
+        "JOPLIN_SERVER_ALLOW_WRITE": "${user_config.server_allow_write}"
+      }
+    }
+  },
+  "user_config": {
+    "local_url": {
+      "type": "string",
+      "title": "Joplin desktop API URL (local mode)",
+      "description": "Leave empty for the default http://127.0.0.1:41184.",
+      "required": false,
+      "default": ""
+    },
+    "local_token": {
+      "type": "string",
+      "title": "Joplin desktop API token (local mode)",
+      "description": "Optional: auto-detected from Joplin's settings. Found under Tools > Options > Web Clipper.",
+      "sensitive": true,
+      "required": false,
+      "default": ""
+    },
+    "server_url": {
+      "type": "string",
+      "title": "Joplin Server URL (server mode)",
+      "description": "e.g. https://joplin.example.com. Setting this switches to server mode; leave empty to use Joplin desktop.",
+      "required": false,
+      "default": ""
+    },
+    "server_email": {
+      "type": "string",
+      "title": "Joplin Server email",
+      "description": "Account email for Joplin Server.",
+      "required": false,
+      "default": ""
+    },
+    "server_password": {
+      "type": "string",
+      "title": "Joplin Server password",
+      "description": "Account password for Joplin Server. Stored in the OS keychain.",
+      "sensitive": true,
+      "required": false,
+      "default": ""
+    },
+    "server_allow_write": {
+      "type": "boolean",
+      "title": "Allow writes to Joplin Server",
+      "description": "Let Claude create, edit and trash notes on Joplin Server (applied by Joplin apps on next sync).",
+      "required": false,
+      "default": false
+    }
+  },
+  "tools": [
+    { "name": "status", "description": "Check the Joplin connection" },
+    { "name": "list_notebooks", "description": "List notebooks" },
+    { "name": "list_notes", "description": "List recent notes, optionally in one notebook" },
+    { "name": "search_notes", "description": "Full-text search notes" },
+    { "name": "get_note", "description": "Read a note's Markdown body, tags and metadata" },
+    { "name": "create_note", "description": "Create a note" },
+    { "name": "update_note", "description": "Replace, append to or move a note" },
+    { "name": "delete_note", "description": "Move a note to the trash" },
+    { "name": "create_notebook", "description": "Create a notebook" },
+    { "name": "list_tags", "description": "List tags" },
+    { "name": "tag_note", "description": "Add tags to a note" },
+    { "name": "request_local_token", "description": "Request an API token from Joplin desktop" },
+    { "name": "configure", "description": "Save connection settings" }
+  ],
+  "compatibility": {
+    "platforms": ["darwin", "win32", "linux"],
+    "runtimes": { "node": ">=18.0.0" }
+  }
+}

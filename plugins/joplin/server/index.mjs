@@ -207,16 +207,17 @@ async function handle(msg) {
   }
 }
 
+const inFlight = new Set();
 const rl = createInterface({ input: process.stdin });
-rl.on('line', async (line) => {
+rl.on('line', (line) => {
   if (!line.trim()) return;
   let msg;
   try { msg = JSON.parse(line); } catch { return send({ id: null, error: { code: -32700, message: 'Parse error' } }); }
-  try {
-    const result = await handle(msg);
-    if (msg.id !== undefined && result !== undefined) send({ id: msg.id, result });
-  } catch (e) {
-    if (msg.id !== undefined) send({ id: msg.id, error: { code: e.code || -32603, message: e.message } });
-  }
+  const p = handle(msg).then(
+    (result) => { if (msg.id !== undefined && result !== undefined) send({ id: msg.id, result }); },
+    (e) => { if (msg.id !== undefined) send({ id: msg.id, error: { code: e.code || -32603, message: e.message } }); },
+  ).finally(() => inFlight.delete(p));
+  inFlight.add(p);
 });
-rl.on('close', () => process.exit(0));
+// Finish answering in-flight requests before exiting when the client closes stdin.
+rl.on('close', () => Promise.allSettled([...inFlight]).then(() => process.exit(0)));

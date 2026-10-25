@@ -4,9 +4,11 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 
+// Empty values and unexpanded placeholders (e.g. "${user_config.x}" from an
+// .mcpb host, "${VAR}" from .mcp.json) count as unset.
 const env = (k) => {
-  const v = process.env[k];
-  return v !== undefined && v.trim() !== '' ? v.trim() : undefined;
+  const v = process.env[k]?.trim();
+  return v && !/^\$\{[^}]*\}$/.test(v) ? v : undefined;
 };
 const first = (...vals) => vals.find((v) => v !== undefined && v !== null && v !== '');
 

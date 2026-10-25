@@ -19,6 +19,16 @@ The plugin includes a zero-dependency MCP server (Node.js ≥ 18). There is noth
 
 Then run **`/joplin:setup`** and Claude walks you through the connection.
 
+### Claude Desktop (`.mcpb` extension)
+
+1. Download `joplin-<version>.mcpb` from the [Releases](https://github.com/lim0513/joplin-claude-plugin/releases) page, or build it yourself with `npm run pack:mcpb` (written to `dist/`).
+2. Double-click the file, or drag it into Claude Desktop's *Settings → Extensions*, then click **Install**.
+3. In the extension's settings:
+   - **Joplin desktop**: leave everything empty. The token is auto-detected; paste it only if detection fails.
+   - **Joplin Server**: fill in the URL, email and password, and optionally turn on *Allow writes*. Sensitive values are stored in the OS keychain.
+
+Claude Desktop runs the extension with its built-in Node.js, so you don't need Node installed. The `/joplin:setup` command and the skill are Claude Code features and aren't included in the extension; the tools are.
+
 ## Configure
 
 Settings are read in this order: **environment variables → config file → auto-detection**.
@@ -90,7 +100,9 @@ Also included: the `/joplin:setup` command and a `joplin` skill that teaches Cla
 - **本地模式**：连接本机运行的 Joplin 桌面版（需在“选项 → 网页剪辑器”中启用服务，令牌会自动读取）。
 - **服务器模式**：连接 Joplin Server，官方或自建（Docker 等）均可，使用邮箱 + 密码登录。默认只读，设置 `allowWrite: true` 后才能写入。开启端到端加密的账号请用本地模式。
 
-安装后运行 `/joplin:setup` 按提示配置即可。
+Claude Code：安装后运行 `/joplin:setup` 按提示配置即可。
+
+Claude Desktop：从 Releases 下载 `.mcpb` 文件，双击安装。连本地 Joplin 时设置项留空；连 Joplin Server 时填写地址、邮箱和密码。
 
 ## Development
 

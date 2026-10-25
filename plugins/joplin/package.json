@@ -4,7 +4,13 @@
   "private": true,
   "type": "module",
   "description": "Claude Code plugin + MCP server for Joplin (desktop Data API and Joplin Server)",
-  "engines": { "node": ">=18" },
-  "scripts": { "test": "node --test test/*.test.mjs", "start": "node server/index.mjs" },
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "test": "node --test test/*.test.mjs",
+    "start": "node server/index.mjs",
+    "pack:mcpb": "npx -y @anthropic-ai/mcpb@2.1.2 validate manifest.json && npx -y @anthropic-ai/mcpb@2.1.2 pack . ../../dist/joplin-$npm_package_version.mcpb"
+  },
   "license": "MIT"
 }
