@@ -10,7 +10,8 @@
   "scripts": {
     "test": "node --test test/*.test.mjs",
     "start": "node server/index.mjs",
-    "pack:mcpb": "npx -y @anthropic-ai/mcpb@2.1.2 validate manifest.json && npx -y @anthropic-ai/mcpb@2.1.2 pack . ../../dist/joplin-$npm_package_version.mcpb"
+    "pack:mcpb": "npx -y @anthropic-ai/mcpb@2.1.2 validate manifest.json && npx -y @anthropic-ai/mcpb@2.1.2 pack . ../../dist/joplin-$npm_package_version.mcpb",
+    "pack:plugin": "cd .. && rm -f ../dist/joplin-$npm_package_version.plugin && mkdir -p ../dist && cd joplin && zip -qr ../../dist/joplin-$npm_package_version.plugin . -x \"test/*\" \"manifest.json\" \".mcpbignore\" \"package.json\" \"*.mcpb\" \"*.plugin\""
   },
   "license": "MIT"
 }
